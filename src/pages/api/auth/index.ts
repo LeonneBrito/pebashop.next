@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   switch (method) {
     case 'POST':
       try {
+        
         const {
           email,
           password,
@@ -23,6 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             email
           }
         })
+
         if(!userExist) {
           res.status(400).json({ message: 'Usuário/Senha inválidos.' })
         }
