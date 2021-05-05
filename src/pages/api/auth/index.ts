@@ -12,34 +12,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   switch (method) {
     case 'POST':
-      const {
-        email,
-        password,
-      } = req.body;
+      try {
+        const {
+          email,
+          password,
+        } = req.body;
 
-      const userExist = await prisma.user.findUnique({
-        where: {
-          email
+        const userExist = await prisma.user.findUnique({
+          where: {
+            email
+          }
+        })
+        if(!userExist) {
+          res.status(400).json({ message: 'Usuário/Senha inválidos.' })
         }
-      })
-      if(!userExist) {
-        res.status(400).json({ message: 'Usuário/Senha inválidos.' })
+
+        const passwordMatched =  await bcrypt.compare(password, userExist.password);
+        if(!passwordMatched) {
+          return res.status(400).json({ message: 'Usuário/Senha inválidos.' })
+        }
+
+        const { secret, expiresIn } = authConfig.jwt;
+        const token = jwt.sign({}, secret, {
+          subject: String(userExist.id),
+          expiresIn,
+        })
+
+        const user = userView.render(userExist);
+
+        return res.status(200).json({ user, token });
+      } catch(error) {
+        return res.status(500).json({error: error.message});
       }
-
-      const passwordMatched =  await bcrypt.compare(password, userExist.password);
-      if(!passwordMatched) {
-        return res.status(400).json({ message: 'Usuário/Senha inválidos.' })
-      }
-
-      const { secret, expiresIn } = authConfig.jwt;
-      const token = jwt.sign({}, secret, {
-        subject: String(userExist.id),
-        expiresIn,
-      })
-
-      const user = userView.render(userExist);
-
-      return res.status(200).json({ user, token });
       break
     default:
       res.status(400).json({ success: false })
