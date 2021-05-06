@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "server": "cross-env NODE_ENV=dev tsnd -r --respawn --ignore node_modules server.ts"
+    "start": "next start"
   },
   "dependencies": {
     "@prisma/client": "2.22.0",
