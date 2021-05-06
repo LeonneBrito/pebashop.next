@@ -10,6 +10,7 @@
   "dependencies": {
     "@prisma/client": "2.22.0",
     "aws-sdk": "^2.900.0",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "handlebars": "^4.7.7",
@@ -21,6 +22,9 @@
     "nodemailer": "^6.6.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.2.0",
+    "react-toastify": "^7.0.4",
+    "sass": "^1.32.12",
     "yup": "^0.32.9"
   },
   "devDependencies": {
