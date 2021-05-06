@@ -19,22 +19,15 @@ model User {
   token    String? @unique
 }
 
-model Image {
-  id      String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  path    String @unique
-  Store   Store  @relation(fields: [storeId], references: [id])
-  storeId String @db.ObjectId
-}
-
 model Store {
-  id               String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id               String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
   name             String
   latitude         Decimal
   longitude        Decimal
   about            String
   whatsapp         String
-  is_accepted      Boolean @default(false)
+  is_accepted      Boolean  @default(false)
   opening_hours    String
-  open_on_weekends Boolean @default(true)
-  images           Image[]
+  open_on_weekends String
+  image            String
 }

@@ -1,5 +1,5 @@
-import bcrypt from 'bcryptjs';
 import path from "path";
+import bcrypt from 'bcryptjs';
 import getConfig from 'next/config'
 import AppError from '../../../errors/AppError';
 import { PrismaClient, User } from "@prisma/client";
